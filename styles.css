@@ -91,7 +91,7 @@ p { font-family: 'Lora', serif; font-size: 1.35rem; margin-bottom: 40px; color: 
 .sim-cone-glyph { font-size: 10rem; margin-bottom: 30px; font-family: 'Courier New', Courier, monospace; }
 #sim-status-label { font-family: 'Courier New', Courier, monospace; color: var(--mcd-gold); font-size: 2rem; margin-bottom: 60px; letter-spacing: 4px; font-weight: 900; }
 .sim-alert { font-family: 'Courier New', Courier, monospace; color: var(--mcd-red); background: #fff; padding: 15px 40px; font-weight: 900; border-radius: 12px; margin-bottom: 40px; display: inline-block; font-size: 1.2rem; border: 4px solid var(--mcd-red); }
-.sim-analysis-text { font-family: 'Courier New', Courier, monospace; color: white; font-style: italic; font-size: 1.6rem; line-height: 1.6; max-width: 850px; margin: 0 auto 50px auto; }
+.sim-analysis-text { font-family: 'Courier New', Courier, monospace; color: var(--mcd-red); font-style: italic; font-size: 1.6rem; line-height: 1.6; max-width: 850px; margin: 0 auto 50px auto; }
 .sim-btn { padding: 18px 50px; background: var(--mcd-gold); color: var(--mcd-red); border: none; font-family: 'Bungee'; border-radius: 10px; cursor: pointer; box-shadow: 0 6px 0 #8c1a11; font-size: 1.2rem; transition: 0.1s; }
 .sim-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #8c1a11; }
 .sim-btn.secondary { background: var(--mcd-red); color: white; box-shadow: 0 6px 0 #60120b; }
