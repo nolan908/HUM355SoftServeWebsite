@@ -172,14 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger.addEventListener('mouseleave', hideTip);
     });
 
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-            else entry.target.classList.remove('visible');
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('section').forEach(s => obs.observe(s));
-
     // --- 5. NETWORK MAP (D3) ---
     const essayParagraphs = {
         Cow: "The vanilla soft-serve cone handed to a customer is embedded in an extraction network that spans dairy production, industrial processing, refrigeration, transportation, franchise labor, machine design, maintenance, and consumer standards.",
