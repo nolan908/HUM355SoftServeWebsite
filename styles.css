@@ -64,11 +64,11 @@ body { background-color: var(--bg-paper); color: var(--ink); font-family: 'Inter
 .map-tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #8c1a11; }
 
 /* 4. PAGE LAYOUT */
-.page-container { display: flex; max-width: 1750px; margin: 0 auto; padding: 100px 60px; gap: 140px; padding-left: 180px; }
-.text-column { flex: 1; min-width: 0; padding-right: 40px; }
+.page-container { display: flex; max-width: 1400px; margin: 0 auto; padding: 100px 40px; gap: 80px; padding-left: 140px; }
+.text-column { flex: 1; min-width: 0; padding-right: 20px; }
 
-section { margin-bottom: 250px; opacity: 0.1; transform: translateY(30px); transition: opacity 1.2s ease, transform 1.2s ease; }
-section.visible { opacity: 1; transform: translateY(0); }
+section { margin-bottom: 250px; opacity: 1; transform: none; }
+section.visible { opacity: 1; transform: none; }
 
 section h2 { font-family: 'Bungee', cursive; font-size: 1.8rem; margin-bottom: 45px; color: var(--mcd-red); border-bottom: 3px solid #eee; padding-bottom: 15px; }
 p { font-family: 'Lora', serif; font-size: 1.35rem; margin-bottom: 40px; color: #222; text-align: justify; }
