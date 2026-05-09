@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const stream = document.getElementById('stream-flow');
         const status = document.getElementById('machine-status');
 
-        lever.style.transform = 'rotate(30deg)';
+        lever.style.transform = 'rotate(20deg)';
         status.innerText = "DISPENSING...";
 
         setTimeout(() => {
