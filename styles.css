@@ -178,3 +178,25 @@ p { font-family: 'Lora', serif; font-size: 1.35rem; margin-bottom: 40px; color: 
 .animate-pulse { animation: pulse-soft 4s ease-in-out infinite; }
 .animate-shake { animation: shake-slight 0.5s ease-in-out infinite; }
 .animate-ride { animation: ride-sway 2s ease-in-out infinite; }
+
+/* CAPTIONED IMAGES */
+.captioned-image {
+    margin: 60px 0;
+    text-align: center;
+}
+.captioned-image img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 8px solid #fff;
+}
+.captioned-image p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 15px;
+    font-style: italic;
+    text-align: center;
+}
