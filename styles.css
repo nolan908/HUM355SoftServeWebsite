@@ -200,3 +200,8 @@ p { font-family: 'Lora', serif; font-size: 1.35rem; margin-bottom: 40px; color: 
     font-style: italic;
     text-align: center;
 }
+
+#lever-assembly {
+    transform-origin: 100px 140px;
+    transition: transform 1.2s cubic-bezier(0.5, 0, 0.1, 1);
+}

@@ -38,16 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. OPENER LOGIC (REFINED PHYSICS) ---
     window.dispenseSequence = () => {
-        const rod = document.getElementById('lever-rod');
-        const handle = document.getElementById('lever-handle');
+        const lever = document.getElementById('lever-assembly');
         const stream = document.getElementById('stream-flow');
         const status = document.getElementById('machine-status');
 
-        rod.style.transition = "transform 1.2s cubic-bezier(0.5, 0, 0.1, 1)";
-        handle.style.transition = "transform 1.2s cubic-bezier(0.5, 0, 0.1, 1)";
-        
-        rod.style.transform = 'translateY(15px) rotate(15deg)';
-        handle.style.transform = 'translateY(25px)';
+        lever.style.transform = 'rotate(30deg)';
         status.innerText = "DISPENSING...";
 
         setTimeout(() => {
@@ -58,8 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             setTimeout(() => {
                 stream.setAttribute('height', '0');
-                rod.style.transform = 'rotate(0)';
-                handle.style.transform = 'translateY(0)';
+                lever.style.transform = 'rotate(0)';
                 status.innerText = "SUCCESS";
 
                 setTimeout(() => {
