@@ -40,9 +40,11 @@
                     <circle id="swirl-layer-2" cx="100" cy="250" r="0" fill="#fff" stroke="#eee" />
                     <circle id="swirl-layer-3" cx="100" cy="238" r="0" fill="#fff" stroke="#eee" />
                 </g>
-                <g id="lever-assembly">
-                    <line x1="100" y1="140" x2="100" y2="85" stroke="#333" stroke-width="8" stroke-linecap="round" id="lever-rod" />
-                    <circle cx="100" cy="80" r="12" fill="#DA291C" id="lever-handle" />
+                <g transform="translate(100, 140)">
+                    <g id="lever-assembly">
+                        <line x1="0" y1="0" x2="0" y2="-55" stroke="#333" stroke-width="8" stroke-linecap="round" id="lever-rod" />
+                        <circle cx="0" cy="-60" r="12" fill="#DA291C" id="lever-handle" />
+                    </g>
                 </g>
                 <rect x="70" y="60" width="60" height="90" fill="transparent" style="cursor:pointer" onclick="window.dispenseSequence()" />
             </svg>
