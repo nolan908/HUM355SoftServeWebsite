@@ -134,7 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "8": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken,' YouTube video, April 20, 2021, https://www.youtube.com/watch?v=SrDEtSlqJC4.",
         "9": "Jane Bennett, Vibrant Matter: A Political Ecology of Things (Durham, NC: Duke University Press, 2010).",
         "10": "Maria Kaika, City of Flows: Modernity, Nature, and the City (New York: Routledge, 2005).",
-        "11": "Emeka W. Dumbili, 'McDonaldization and Modern society,' 2020."
+        "11": "Emeka W. Dumbili, 'McDonaldization and Modern society,' 2020.",
+        "12": "United States Environmental Protection Agency, Proceedings Eighth National Symposium on Food Processing Wastes (1977)."
     };
 
     const showTip = (content, e) => {
