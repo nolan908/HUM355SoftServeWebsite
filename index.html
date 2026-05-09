@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft-Serve Alienation | Interactive Study</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- HELIX DISPENSER SYSTEM -->
+    <div id="helix-sidebar-track">
+        <svg id="helix-svg"></svg>
+        <div id="sidebar-cone-target">
+            <img src="vanilla-cone.png" class="bottom-cone-img" alt="Infrastructural Endpoint">
+        </div>
+    </div>
+
+    <div id="reading-progress"></div>
+
+    <!-- 0. OPENER OVERLAY -->
+    <div id="opener-overlay">
+        <h2 class="opener-title">Infrastructural Dispenser</h2>
+        <div class="machine-viz-container">
+            <svg viewBox="0 0 200 350" class="main-machine-svg">
+                <defs>
+                    <linearGradient id="metal-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#f0f0f0" />
+                        <stop offset="50%" style="stop-color:#dcdcdc" />
+                        <stop offset="100%" style="stop-color:#c0c0c0" />
+                    </linearGradient>
+                </defs>
+                <rect x="30" y="10" width="140" height="320" rx="15" fill="url(#metal-grad)" stroke="#aaa" stroke-width="2" />
+                <rect x="50" y="40" width="100" height="50" fill="#1a1a1a" rx="5" />
+                <text x="100" y="70" text-anchor="middle" fill="#FFC72C" font-family="monospace" font-size="8" id="machine-status">SYSTEM READY</text>
+                <path d="M 85,180 L 115,180 L 110,200 L 90,200 Z" fill="#888" />
+                <rect id="stream-flow" x="97" y="200" width="6" height="0" fill="#fff" />
+                <g id="cone-group">
+                    <path d="M 80,270 L 120,270 L 100,315 Z" fill="#d7b38c" stroke="#8e5d2c" />
+                    <circle id="swirl-layer-1" cx="100" cy="265" r="0" fill="#fff" stroke="#eee" />
+                    <circle id="swirl-layer-2" cx="100" cy="250" r="0" fill="#fff" stroke="#eee" />
+                    <circle id="swirl-layer-3" cx="100" cy="238" r="0" fill="#fff" stroke="#eee" />
+                </g>
+                <g id="lever-assembly" style="cursor:pointer" onclick="window.dispenseSequence()">
+                    <line x1="100" y1="140" x2="100" y2="85" stroke="#333" stroke-width="8" stroke-linecap="round" id="lever-rod" />
+                    <circle cx="100" cy="80" r="12" fill="#DA291C" id="lever-handle" />
+                    <rect x="70" y="60" width="60" height="90" fill="transparent" />
+                </g>
+            </svg>
+            <p class="opener-hint" id="opener-hint">PULL THE LEVER TO BEGIN ANALYSIS</p>
+        </div>
+    </div>
+
+    <!-- 1. STICKY HEADER -->
+    <header class="fast-food-header">
+        <div class="header-inner">
+            <div class="header-main-row">
+                <h1 class="header-title">SOFT SERVE ALIENATION</h1>
+            </div>
+            <div class="thesis-strip">
+                The Infrastructure of Ice Cream Soft Serve Machines
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. TABBED CONTENT CONTAINERS -->
+    <div id="tab-article" class="tab-view active">
+        <div class="page-container">
+            <!-- Sidebar Navigation (Fixed/Static) -->
+            <aside class="sticky-sidebar">
+                <div class="toc-container">
+                    <nav class="toc">
+                        <span class="sidebar-head">Navigation</span>
+                        <ul>
+                            <li><a href="#sec-1">Appearance</a></li>
+                            <li><a href="#sec-2">Origins</a></li>
+                            <li><a href="#sec-3">Processing</a></li>
+                            <li><a href="#sec-4">Cold Chain</a></li>
+                            <li><a href="#sec-5">Labor</a></li>
+                            <li><a href="#sec-6">Authority</a></li>
+                            <li><a href="#sec-7">Assemblage</a></li>
+                            <li><a href="#sec-8">Flows</a></li>
+                            <li><a href="#sec-9">Breakdowns</a></li>
+                        </ul>
+                    </nav>
+                    <div class="sidebar-action">
+                        <button class="map-tab-btn" onclick="window.switchTab('map')">VIEW EXTRACTION MAP</button>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="text-column">
+                <article id="essay-body">
+                    <section id="sec-1">
+                        <div class="section-logo-container">
+                            <div class="section-emoji animate-float">🍦</div>
+                        </div>
+                        <h2>Section 1: The Cone as It Appears</h2>
+                        <p class="dropcap">Contemporary fast-food soft serve is more than a consumer product: it constitutes an <span class="glossary" data-def="Foundational systems such as production, distribution, and technological platforms.">infrastructure</span> of <span class="glossary" data-def="The separation of workers from the products, processes, and outcomes of their labor.">alienation</span> in the fast-food industry. We take an interest in how McDonald's operates. Infrastructure, in this context, refers to foundational systems such as production, distribution, and technological platforms, each of which enables the creation and delivery of soft serve. Meanwhile, alienation entails the separation of workers from the products, processes, and outcomes of their labor.</p>
+                        <p>The vanilla soft serve cone handed to a customer is embedded in an extraction network, a system that extends across dairy production, industrial processing, refrigeration, transportation, franchise labor, machine design, maintenance, and consumer standards, where each element plays a role in the <span class="glossary" data-def="An organized network that moves a product from raw materials to consumers.">supply chain</span>. Together, we see how the different sections throughout this article show that alienation is embedded and obscured within fast-food infrastructures.</p>
+                        <p>This analysis examines late twentieth and twenty first century fast-food supply chains, offering a distinct approach: rather than tracing alienation to global supply chains, it draws on Marx’s theory of alienated labor<sup class="fn" data-fn="1">1</sup>. According to Marx, alienation manifests when workers are separated from the product, process, and value of their labor under capitalism, regardless of era or scale. Modern fast-food supply chains intensify and obscure alienation, dispersing production while presenting the finished product as detached from the workers, animals, materials, and machines involved.</p>
+                    <section id="sec-2">
+                        <div class="section-logo-container">
+                            <div class="section-emoji animate-pulse">🥛</div>
+                        </div>
+                        <h2>Section 2: Ingredient Origins</h2>
+                        <p>This complexity is seen in a clear example. A McDonald’s vanilla cone is not simply milk from a cow. The ingredient list for McDonald’s vanilla reduced fat ice cream includes many items: milk, sugar, cream, corn syrup, natural flavor, mono and diglycerides, cellulose gum, guar gum, carrageenan, and vitamin A palmitate<sup class="fn" data-fn="2">2</sup>. McDonald's USA details these ingredients on its official nutrition and ingredients page<sup class="fn" data-fn="2">2</sup>.</p>
+                        <p>This reveals how layered the product is. Each ingredient links the restaurant to dairy farms, sugar and corn production, stabilizer manufacturing, food science, and distribution. Efficiency is defined by speed, uniformity, food safety, low cost, <span class="glossary" data-def="The process of making something conform to a standard, often erasing original identities.">standardization</span>, and managerial control. Conversely, <span class="glossary" data-def="The degree of freedom workers have over their labor process.">worker autonomy</span> and transparency are deprioritized.</p>
+                    </section>
+
+                    <section id="sec-3">
+                        <div class="section-logo-container">
+                            <div class="section-emoji animate-shake">⚙️</div>
+                        </div>
+                        <h2>Section 3: Industrial Processing</h2>
+                        <p><em>Ice Cream Manufacturing: Principles and Methods Explained (2024)</em> describes the industrial process<sup class="fn" data-fn="3">3</sup>. It includes mixing, pasteurization, homogenization, aging, and freezing. Each stage is shaped by food science. The mixture is then transported and stored under refrigeration. Individual effort is distributed across a global system of logistics and machinery. The finished cone, seen by the consumer as ordinary, is actually the endpoint of a system that hides its origins, labor, and supply chain complexity. This example shows how alienation is embedded in fast-food commodities, as Marx argued. Each step, processing, transport, and technology, conceals the links between labor, materials, and consumption.</p>
+                    </section>
+
+                    <section id="sec-4">
+                        <div class="section-logo-container">
+                            <div class="section-emoji animate-ride">🚲 ❄️</div>
+                        </div>
+                        <h2>Section 4: Cold Chain Logistics</h2>
+                        <p>The <span class="glossary" data-def="A temperature-controlled supply chain that masks infrastructure while preserving commodities.">cold chain</span> is critical. The USDA defines cold-chain food flows as temperature-controlled delivery from producer to consumer<sup class="fn" data-fn="4">4</sup>. This process is vital for food safety and quality. Scholars like Mayhew and Quinlan (2002) argue that standardization and control in fast-food logistics enable efficiency but also obscure the labor that goes into the product<sup class="fn" data-fn="5">5</sup>. The last stage in the soft-serve cone's creation shows the alienation built into fast-food infrastructure. At every stage, workers are isolated from the final product.</p>
+                    </section>
+
+                    <section id="sec-5">
+                        <div class="section-logo-container">
+                            <div class="section-emoji">👷</div>
+                        </div>
+                        <h2>Section 5: Fragmented Labor</h2>
+                        <p>Marxist theory clarifies these forces. In Estranged Labour, Marx writes, "the worker becomes a servant of his object." Labor produces objects and values that control workers rather than belong to them. This is central to fast-food soft serve. Workers dispense cones, clean machines, serve customers, and address complaints, but do not control products, machines, contracts, prices, recipes, or sales value. Their labor completes the commodity, yet ownership and control stay with the company and franchise. The worker’s link to the product is indirect, mediated by capital. Theory frames this analysis of alienation throughout the supply chain.</p>
+                    </section>
+
+                    <section id="sec-6">
+                        <div class="section-logo-container">
+                            <div class="section-emoji animate-shake">⚙️ 🔓</div>
+                        </div>
+                        <h2>Section 6: The Machine as Authority</h2>
+                        <p>Marx argues that alienation happens in production. He calls this process active alienation. The supply chain does not create alienation itself, but extends labor organization for capital’s benefit. By combining ingredients, transport, corporate rules, maintenance, and <span class="glossary" data-def="Mechanical systems introduced to extract surplus value, defining strict parameters for workers.">machinery</span> outside worker control, the supply chain intensifies alienation. Under capitalism, machines are introduced to extract surplus value and cut costs, not to reduce labor. The soft-serve machine illustrates this in restaurants. Predefined recipes, cleaning cycles, and digital interfaces define strict parameters for workers, reinforcing their alienation.</p>
+                        <p>The Taylor C602 soft-serve manual stresses the machine's significance as infrastructure<sup class="fn" data-fn="6">6</sup>. Through heat-treatment cycles, cleaning requirements, temperature controls, and lockout conditions, the machine can prevent operation if protocols are not followed. The manual specifies that the heat-treatment cycle must be completed at least once every 24 hours. If not, the freezer automatically enters standby mode. These technical requirements carry philosophical consequences. The machine organizes workers’ labor rather than simply assisting them. Workers must respond to programmed cycles, error messages, and lockouts.</p>
+                    </section>
+
+                    <section id="sec-7">
+                        <h2>Section 7: Assemblage & Politics</h2>
+                        <p>Langdon Winner’s analysis is instructive in this context. In <em>Do Artifacts Have Politics?</em>, Winner contends that machines and systems should be evaluated based on how they embody power and authority, not solely on efficiency<sup class="fn" data-fn="7">7</sup>. Artifacts are constructed, maintained, and used within social systems. Their designs are able to reinforce political arrangements. The soft-serve machine determines who may access, repair, clean, or override the system. Thus, it represents power relations. While some authority is vested in workers, greater control resides with corporate policies, service technicians, health codes, and managers. In this partnership, franchises bear the heavy cost of these repairs while McDonald's benefits a larger corporation, Taylor, rather than the consumer. This proprietary arrangement discourages innovation and makes it difficult to repair the machines through lockouts via verification codes. Consequently, all roads lead to 'call the guy,' allowing Taylor to generate 25% of its business revenue strictly from repairs, a case study in proprietary control documented in Johnny Harris’s investigative reporting on the machine’s proprietary repair lockouts<sup class="fn" data-fn="8">8</sup>. McDonald's further reinforces this by locking franchises out of any other equipment deals, illustrating how the machine's technical lockout is a tool of economic and political authority.</p>
+                        <p>Winner’s framework indicates that the politics of the soft-serve machine are fundamentally hierarchical. These machines achieve uniformity and safety by limiting worker discretion. Jane Bennett’s <span class="glossary" data-def="A combination of human and nonhuman elements that collectively produce outcomes.">assemblage</span> theory, which examines how diverse human and nonhuman components join to form complex networks, provides additional insight<sup class="fn" data-fn="9">9</sup>. Bennett defines an assemblage as a combination of human and nonhuman elements that collectively produce outcomes, noting that agency emanates from the interactions among multiple entities rather than from any single actant.</p>
+                    </section>
+
+                    <section id="sec-8">
+                        <h2>Section 8: Hidden Flows</h2>
+                        <p>Maria Kaika’s <em>City of Flows</em> further strengthens this analysis<sup class="fn" data-fn="10">10</sup>. Kaika contends that contemporary infrastructure creates the illusion that natural and social processes are separate, despite their deep interconnection. In her examination of water, the faucet presents water as immediate, clean, and natural, while concealing the dams, pipes, labor, capital, and political decisions required to deliver it to the home. Soft-serve is extracted, processed, stabilized, refrigerated, branded, and dispensed. This makes soft serve an exemplary case of how infrastructure conceals the social labor embedded within a commodity. Kaika also argues that the modern home appears independent from natural and social processes only because the flows of nature, social relations, and money that support it are hidden, fetishized, or visually severed<sup class="fn" data-fn="11">11</sup>.</p>
+                    </section>
+
+                    <section id="sec-9">
+                        <h2>Section 9: Breakdown Moment</h2>
+                        <div class="mcd-sim-container">
+                            <h2 class="sim-header">Simulation: System Rupture</h2>
+                            <div class="mcd-ui-panel">
+                                <div class="sim-cone-glyph">🍦</div>
+                                <div id="sim-status-label">SYSTEM ONLINE</div>
+                                <button id="btn-serve-sim" class="map-tab-btn" onclick="window.runRuptureSim()">SERVE CONE</button>
+                            </div>
+                            <div id="sim-reveal-area" class="hidden">
+                                <div class="sim-alert">LOCKOUT ENGAGED: HEAT CYCLE FAILURE</div>
+                                <p class="sim-analysis-text">"When the machine is 'broken,' both forms of alienation meet. The consumer's desire confronts the worker's limited power. The worker becomes the visible representative of an invisible system."</p>
+                                <button class="map-tab-btn secondary">CALL MAINTENANCE</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="resources" class="additional-resources">
+                        <h2 class="resource-header">Additional Resources</h2>
+                        <div class="expanded-embed-box">
+                            <h3>Case Study: Proprietary Control</h3>
+                            <iframe width="100%" height="450" src="https://www.youtube.com/embed/SrDEtSlqJC4" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                            <p>Johnny Harris's investigative reporting provides the clinical data for this study's repair monopoly argument. It exposes the verification code lockouts that generate 25% of Taylor's business revenue while disenfranchising local franchise labor.</p>
+                        </div>
+                        <div class="expanded-embed-box">
+                            <h3>Real-Time Rupture Map</h3>
+                            <iframe src="https://mcbroken.com/" width="100%" height="500" style="border:0;" loading="lazy"></iframe>
+                            <p>McBroken.com serves as a living proof of Maria Kaika's "visibility through failure" framework. It tracks the real-time breakdown of the soft-serve infrastructure across thousands of U.S. locations.</p>
+                        </div>
+                    </section>
+
+                    <section id="works-cited">
+                        <h2>Works Cited</h2>
+                        <ul class="citation-list">
+                            <li>Bennett, Jane. <em>Vibrant Matter: A Political Ecology of Things</em>. Durham, NC: Duke University Press, 2010.</li>
+                            <li>Dumbili, Emeka W. “McDonaldization and Modern Society.” <em>SAGE Open</em> 3, no. 2 (2013).</li>
+                            <li>Harris, Johnny. “The Real Reason McDonald’s Ice Cream Machines Are Always Broken.” YouTube video. 2021.</li>
+                            <li><em>Ice Cream Manufacturing: Principles and Methods Explained</em>. New York: Springer, 2024.</li>
+                            <li>Kaika, Maria. <em>City of Flows: Modernity, Nature, and the City</em>. New York: Routledge, 2005.</li>
+                            <li>Marx, Karl. “Estranged Labour.” In <em>Economic and Philosophical Manuscripts of 1844</em>. 1959.</li>
+                            <li>Mayhew, Claire, and Michael Quinlan. “Fordism in the Fast Food Industry.” 2002.</li>
+                            <li>McDonald’s USA. “Vanilla Cone.” Nutrition & Ingredients. 2026.</li>
+                            <li>Taylor Company. <em>Model C602 Combination Shake/Soft Serve Freezer Manual</em>. n.d.</li>
+                            <li>United States Department of Agriculture. “Cold Chain Food Flows.” 2023.</li>
+                            <li>Winner, Langdon. “Do Artifacts Have Politics?” In <em>The Whale and the Reactor</em>. 1986.</li>
+                        </ul>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- MAP VIEW TAB -->
+    <div id="tab-map" class="tab-view">
+        <div class="map-view-header">
+            <button class="back-btn" onclick="window.switchTab('article')">BACK</button>
+            <h2>The Extraction Network</h2>
+        </div>
+        <div class="map-interface">
+            <div id="interactive-map"></div>
+            <div class="map-hint-footer">Hover over icons to reveal defining essay paragraphs. (Drag to pan, scroll to zoom)</div>
+        </div>
+    </div>
+
+    <div id="unified-tooltip" class="hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

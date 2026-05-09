@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extraction Network | Soft-Serve Alienation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body { background: #fafafa; overflow: hidden; margin: 0; }
+        .map-header { background: var(--mcd-red); color: white; padding: 20px 40px; border-bottom: 6px solid var(--mcd-gold); display: flex; justify-content: space-between; align-items: center; }
+        .map-header h2 { font-family: 'Bungee'; margin: 0; }
+        #full-map-container { width: 100vw; height: calc(100vh - 80px); cursor: grab; }
+        .map-hint { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 10px 20px; border-radius: 50px; font-family: 'Inter'; font-size: 0.8rem; border: 2px solid var(--mcd-gold); pointer-events: none; }
+    </style>
+</head>
+<body>
+    <header class="map-header">
+        <h2>The Extraction Network</h2>
+        <span style="font-family: 'Inter'; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px;">PAN & ZOOM ACTIVE</span>
+    </header>
+
+    <div id="full-map-container"></div>
+    <div class="map-hint">Hover over icons to reveal defining essay paragraphs.</div>
+    <div id="unified-tooltip" class="hidden"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const essayParagraphs = {
+                Cow: "The vanilla soft-serve cone handed to a customer is embedded in an extraction network that spans dairy production, industrial processing, refrigeration, transportation, franchise labor, machine design, maintenance, and consumer standards.",
+                Milk: "A McDonald’s vanilla cone is not simply milk from a cow. Each ingredient links the restaurant to dairy farms, sugar and corn production, stabilizer manufacturing, food science, and distribution.",
+                Sugar: "The ingredient list for McDonald’s vanilla reduced-fat ice cream includes many items: milk, sugar, cream, corn syrup... each ingredient links the restaurant to dairy farms, sugar and corn production.",
+                Plant: "Industrial ice cream production requires mixing, pasteurization, homogenization, aging, and freezing before the product reaches the customer in its final form. Each stage is formed by food science.",
+                Logistics: "The USDA defines cold-chain food flows as temperature-controlled delivery from producer to end consumer by refrigerated trucks. The cold chain is part of the product’s infrastructure.",
+                Freezer: "Standardized, refrigerated, franchise-based systems rapidly produce identical commodities at multiple locations. Efficiency is defined by speed, uniformity, and managerial control.",
+                Taylor: "In this partnership, franchises bear the heavy cost of these repairs while McDonald's benefits a larger corporation, Taylor, rather than the consumer. This proprietary arrangement discourages innovation and makes it difficult to repair the machines through lockouts via verification codes. Consequently, all roads lead to 'call the guy,' allowing Taylor to generate 25% of its business revenue strictly from repairs.",
+                Staff: "The worker becomes the visible representative of an invisible system. Workers dispense cones, clean machines, but do not control products, machines, contracts, prices, recipes, or sales value.",
+                Corp: "McDonald's further reinforces this by locking franchises out of any other equipment deals, illustrating how the machine's technical lockout is a tool of economic and political authority. Greater control resides with corporate policies, technicians, and managers.",
+                Rupture: "When the machine is “broken,” both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system."
+            };
+
+            const mapNodes = [
+                { id: "Cow", x: 100, y: 300, img: "https://cdn-icons-png.flaticon.com/512/2395/2395796.png", l: "Dairy Extraction", t: essayParagraphs.Cow },
+                { id: "Milk", x: 220, y: 200, img: "https://cdn-icons-png.flaticon.com/512/3703/3703253.png", l: "Milk Input", t: essayParagraphs.Milk },
+                { id: "Sugar", x: 220, y: 400, img: "https://cdn-icons-png.flaticon.com/512/4710/4710046.png", l: "Sugar / Corn", t: essayParagraphs.Sugar },
+                { id: "Plant", x: 400, y: 300, img: "https://cdn-icons-png.flaticon.com/512/1047/1047460.png", l: "Industrial Mix", t: essayParagraphs.Plant },
+                { id: "Truck", x: 550, y: 300, img: "https://cdn-icons-png.flaticon.com/512/2830/2830305.png", l: "Cold Chain", t: essayParagraphs.Logistics },
+                { id: "Store", x: 710, y: 200, img: "https://cdn-icons-png.flaticon.com/512/811/811311.png", l: "Store Storage", t: essayParagraphs.Freezer },
+                { id: "Taylor", x: 710, y: 420, img: "", l: "Taylor Machine", t: essayParagraphs.Taylor, isTaylor: true },
+                { id: "Worker", x: 860, y: 300, img: "https://cdn-icons-png.flaticon.com/512/1041/1041893.png", l: "Staff", t: essayParagraphs.Staff },
+                { id: "Policy", x: 860, y: 100, img: "https://cdn-icons-png.flaticon.com/512/2942/2942125.png", l: "Corp Policy", t: essayParagraphs.Corp },
+                { id: "Lockout", x: 1010, y: 400, img: "https://cdn-icons-png.flaticon.com/512/4201/4201973.png", l: "System Rupture", t: essayParagraphs.Rupture }
+            ];
+
+            const mapLinks = [
+                { source: "Cow", target: "Milk" }, { source: "Milk", target: "Plant" }, { source: "Sugar", target: "Plant" },
+                { source: "Plant", target: "Truck" }, { source: "Truck", target: "Store" }, { source: "Store", target: "Taylor" },
+                { source: "Taylor", target: "Worker" }, { source: "Taylor", target: "Lockout" }, { source: "Policy", target: "Taylor" }
+            ];
+
+            const svg = d3.select("#full-map-container").append("svg").attr("width", "100%").attr("height", "100%").attr("viewBox", "0 0 1100 650");
+            const container = svg.append("g");
+            const tooltip = d3.select("#unified-tooltip");
+
+            svg.call(d3.zoom().scaleExtent([0.5, 4]).on("zoom", (e) => container.attr("transform", e.transform)));
+
+            container.append("g").selectAll("line").data(mapLinks).enter().append("line")
+                .attr("x1", d => mapNodes.find(n => n.id === d.source).x).attr("y1", d => mapNodes.find(n => n.id === d.source).y)
+                .attr("x2", d => mapNodes.find(n => n.id === d.target).x).attr("y2", d => mapNodes.find(n => n.id === d.target).y)
+                .attr("stroke", "#ddd").attr("stroke-width", 3).attr("opacity", 0.5);
+
+            const gNodes = container.append("g").selectAll("g").data(mapNodes).enter().append("g")
+                .attr("class", "node-group")
+                .attr("transform", d => `translate(${d.x}, ${d.y})`)
+                .style("cursor", "pointer")
+                .on("mouseenter", function(e, d) {
+                    d3.select(this).transition().duration(200).attr("transform", `translate(${d.x}, ${d.y}) scale(1.6)`);
+                    tooltip.html(`<div style="color:var(--mcd-gold); font-family:'Bungee'; font-size:0.7rem; margin-bottom:10px;">ELEMENT: ${d.l}</div>${d.t}`)
+                        .style("display", "block").classed("hidden", false)
+                        .style("left", (e.clientX + 20) + "px")
+                        .style("top", (e.clientY + 20) + "px");
+                })
+                .on("mousemove", (e) => {
+                    tooltip.style("left", (e.clientX + 20) + "px").style("top", (e.clientY + 20) + "px");
+                })
+                .on("mouseleave", function(e, d) {
+                    d3.select(this).transition().duration(200).attr("transform", `translate(${d.x}, ${d.y}) scale(1)`);
+                    tooltip.style("display", "none").classed("hidden", true);
+                });
+
+            gNodes.each(function(d) {
+                if (d.isTaylor) {
+                    d3.select(this).append("text").text("⚙️").attr("font-size", "50px").attr("dx", -25).attr("dy", 15);
+                } else {
+                    const emojiMap = {
+                        Cow: "🐄", Milk: "🥛", Sugar: "🌽", Plant: "🧪", 
+                        Truck: "🚛", Store: "🏪", Worker: "👷", 
+                        Policy: "📜", Lockout: "🔒"
+                    };
+                    d3.select(this).append("text")
+                        .text(emojiMap[d.id] || "❓")
+                        .attr("font-size", "50px")
+                        .attr("text-anchor", "middle")
+                        .attr("dy", 15);
+                }
+            });
+            gNodes.append("text").text(d => d.l).attr("class", "map-label").attr("dy", 55).attr("text-anchor", "middle");
+        });
+    </script>
+</body>
+</html>

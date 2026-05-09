@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft-Serve Alienation: A Study of Infrastructure</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #fdfdfb;
+            --ink: #1a1a1a;
+            --gold: #b2935b;
+            --red: #d32f2f;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--paper);
+            color: var(--ink);
+            font-family: 'Lora', serif;
+            margin: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* 0. OPENING MACHINE OVERLAY */
+        #opener-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff;
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        .machine-viz {
+            width: 350px;
+            height: 500px;
+            position: relative;
+            background-image: url('https://www.taylor-company.com/sites/default/files/styles/product_full/public/2017-02/C602.png?itok=8e5z5x-f');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #lever-handle {
+            position: absolute;
+            top: 215px;
+            left: 172px;
+            width: 8px;
+            height: 50px;
+            background: #333;
+            cursor: pointer;
+            transform-origin: bottom;
+            transition: transform 0.3s;
+            border-radius: 5px;
+        }
+
+        #lever-handle.pulled { transform: rotateX(45deg); }
+
+        #cream-stream {
+            position: absolute;
+            top: 310px;
+            left: 165px;
+            width: 25px;
+            height: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            transition: height 0.8s ease;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #cream-stream.flowing { height: 60px; }
+
+        .cone-target {
+            position: absolute;
+            bottom: 40px;
+            left: 125px;
+            width: 100px;
+            height: 150px;
+            cursor: pointer;
+            background-image: url('vanilla-cone.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: none;
+        }
+
+        .eat-popup {
+            position: absolute;
+            top: 30%;
+            background: var(--gold);
+            color: #fff;
+            padding: 12px 24px;
+            font-family: 'Inter';
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            display: none;
+            animation: bounce 1s infinite;
+            z-index: 9001;
+        }
+
+        /* 1. Article Layout */
+        #main-content { opacity: 0; transition: opacity 1s ease; }
+        #main-content.visible { opacity: 1; }
+
+        header#sticky-header {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(255,255,255,0.98);
+            border-bottom: 2px solid var(--gold);
+            padding: 10px 40px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .thesis-text { font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; max-width: 60%; color: #444; }
+
+        article { max-width: 850px; margin: 0 auto; padding: 120px 20px; }
+        section { margin-bottom: 180px; }
+        section h2 { font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        p { font-size: 1.15rem; margin-bottom: 2rem; text-align: justify; }
+
+        .intro-bullets { list-style: none; padding: 0; margin-bottom: 40px; border-left: 2px solid var(--gold); padding-left: 30px; }
+        .intro-bullets li { font-family: 'Lora', serif; font-size: 1.1rem; margin-bottom: 20px; color: #333; font-style: italic; }
+
+        #map-section {
+            width: 100vw;
+            background: #fafafa;
+            padding: 100px 0;
+            margin-left: calc(-50vw + 50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #map-svg-container { width: 1100px; height: 550px; overflow: visible; }
+        .map-node image { cursor: pointer; transition: 0.3s; filter: grayscale(100%) opacity(0.6); }
+        .map-node:hover image { filter: grayscale(0%) opacity(1); transform: scale(1.2); }
+        .map-node text { font-family: 'Inter'; font-size: 10px; font-weight: 700; fill: #555; text-transform: uppercase; }
+
+        #map-popup {
+            position: fixed;
+            bottom: -100%; left: 0; width: 100%; height: 55vh;
+            background: #fff; border-top: 5px solid var(--gold);
+            z-index: 8000; transition: bottom 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            padding: 60px 15%; overflow-y: auto;
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.15);
+        }
+        #map-popup.open { bottom: 0; }
+        .close-btn { position: absolute; top: 25px; right: 40px; cursor: pointer; font-family: 'Inter'; font-weight: 700; font-size: 0.7rem; }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .citation-btn { background: none; border: 1px solid var(--gold); color: var(--gold); font-family: 'Inter'; font-size: 0.6rem; padding: 4px 8px; cursor: pointer; margin-left: 10px; }
+        .hidden-citation { display: none; font-size: 0.85rem; color: #888; background: #f9f9f9; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="opener-overlay">
+    <h2 style="font-family:'Inter'; text-transform:uppercase; letter-spacing:5px; margin-bottom:50px">Infrastructural Dispensing</h2>
+    <div class="machine-viz">
+        <div id="lever-handle" onclick="dispense()"></div>
+        <div id="cream-stream"></div>
+        <div class="cone-target" id="cone-target" onclick="eat()"></div>
+    </div>
+    <div class="eat-popup" id="eat-popup">Eat the ice cream!</div>
+    <p style="font-family:'Inter'; font-size:0.75rem; color:#aaa; margin-top:30px; letter-spacing:2px">PULL LEVER TO DISSECT COMMODITY</p>
+</div>
+
+<div id="main-content">
+    <header id="sticky-header">
+        <div class="thesis-text">"Contemporary fast-food soft serve is more than a consumer product; it constitutes an infrastructure of alienation in the fast-food industry."</div>
+        <div style="font-family:'Inter'; font-weight:700; font-size:0.6rem; letter-spacing:2px; color:var(--gold)">NOLAN GRIFFITH // 2026</div>
+    </header>
+
+    <article>
+        <section id="s1">
+            <h1 style="font-family:'Inter'; font-size:2.5rem; text-transform:uppercase; line-height:1; margin-bottom:40px">Soft-Serve Alienation</h1>
+            <h2>Section 1: Infrastructure and Alienation</h2>
+            <p>Contemporary fast-food soft serve is more than a consumer product; it constitutes an infrastructure of alienation in the fast-food industry.</p>
+            
+            <ul class="intro-bullets">
+                <li>'Infrastructure,' in this context, refers to foundational systems such as production, distribution, and technological platforms, each of which enables the creation and delivery of soft serve.</li>
+                <li>Meanwhile, 'alienation' entails the separation of workers from the products, processes, and outcomes of their labor.</li>
+            </ul>
+
+            <p>The vanilla soft-serve cone handed to a customer is embedded in an extraction network that spans dairy production, industrial processing, refrigeration, transportation, franchise labor, machine design, maintenance, and consumer standards—where each element serves a role in the supply chain. Together, we see how the different sections throughout this article show that alienation is embedded and obscured within fast-food infrastructures.</p>
+
+            <p>This analysis studies late twentieth- and twenty-first-century fast-food supply chains, presenting a distinct approach: rather than tracing alienation to global supply chains, it draws on Marx’s theory of alienated labor. According to Marx, alienation manifests when workers are separated from the product, process, and value of their labor under capitalism, regardless of era or scale. Modern fast-food supply chains intensify and obscure alienation, dispersing production while presenting the finished product as detached from the workers, animals, materials, and machines involved.</p>
+
+            <p>This analysis is organized into four sections, each building on the last. First, it defines infrastructure and alienation in the context of fast-food soft serve to establish a Marxist framework. Second, it explores how supply chains and machinery generate alienation by organizing labor through materials and systems. Third, it draws on infrastructure and assemblage theories to show how the commodity's simplicity masks complex social and technological origins. Fourth, it maps the soft-serve network, revealing hidden connections that control the commodity's journey from production to consumption. </p>
+        </section>
+
+        <div id="map-section">
+            <h2>The Supply Chain Network</h2>
+            <p style="font-family:'Inter'; font-size:0.7rem; margin-top:0">CLICK CLIP-ART NODES TO REVEAL ESSAY TEXT</p>
+            <div id="map-svg-container"></div>
+        </div>
+
+        <section id="s2">
+            <h2>Section 2: Supply Chains and Machinery</h2>
+            <p>The supply chain is an interconnected system of entities and actions responsible for producing, processing, storing, transporting, and vending fast-food soft serve. Here, the 'supply chain' is an organized network that moves a product from raw materials to consumers. The focus is not on all supply chains predating globalization, but on recent fast-food chains. This regulated, refrigerated, franchise-based system rapidly produces identical commodities at multiple locations. 'Infrastructure' includes physical elements—equipment and buildings—as well as organizational structures like franchising and standards. Technological systems, including machines and maintenance, enable large-scale soft-serve production. Efficiency is defined by speed, uniformity, food safety, low cost, standardization, and managerial control (Hennessy 2005). Conversely, worker autonomy and transparency are deprioritized (Mayhew & Quinlan, 2002). Fast-food soft serve illustrates these tensions: its simplicity conceals complex infrastructure.</p>
+
+            <p>This complexity is seen in a clear example. A McDonald’s vanilla cone is not simply milk from a cow. The ingredient list for McDonald’s vanilla reduced-fat ice cream includes many items: milk, sugar, cream, corn syrup, natural flavor, mono- and diglycerides, cellulose gum, guar gum, carrageenan, and vitamin A palmitate ("McDonald's Vanilla Ice Cream Cone Nutrition Facts" 2026). McDonald's USA details these ingredients on its official nutrition and ingredients page. This reveals how layered the product is. Each ingredient links the restaurant to dairy farms, sugar and corn production, stabilizer manufacturing, food science, and distribution. "Ice Cream Manufacturing: Principles and Methods Explained" (2024) describes the industrial process. It includes mixing, pasteurization, homogenization, aging, and freezing. Each stage is formed by food science. The mixture is then transported and stored under refrigeration. The cold chain is critical (Leducq, Ndoye, and Alvarez 2015). The USDA defines cold-chain food flows as temperature-controlled delivery from producer to consumer. This process is important for food safety and quality (2023). Scholars like Mayhew and Quinlan (2002) argue that standardization and control in fast-food logistics enable efficiency yet also obscure the labor that goes into the product. The last stage in the soft-serve cone's creation shows the alienation built into fast-food infrastructure. At every stage, workers are isolated from the final product. Individual effort is distributed across a global system of logistics and machinery. The finished cone, seen by the consumer as ordinary, is actually the endpoint of a system that hides its origins, labor, and supply chain complexity. This example shows how alienation is embedded in fast-food commodities, as Marx argued.</p>
+
+            <p>Marxist theory clarifies these forces. In "Estranged Labour," Marx writes, "the worker becomes a servant of his object." Labor produces objects and values that control workers rather than belong to them. This is central to fast-food soft serve. Workers dispense cones, clean machines, serve customers, and address complaints, but do not control products, machines, contracts, prices, recipes, or sales value. Their labor completes the commodity, yet ownership and control stay with the company and franchise. The worker’s link to the product is indirect, mediated by capital. Alienation takes root long before the soft-serve cone reaches a customer. For Marx, alienation is the estrangement of workers from their products, processes, and the value of their labor under capitalism, frequently fueled by specialization and external control. Across the chain, dairy workers, processors, drivers, warehouse operators, restaurant staff, and technicians each play a role. Yet their labor remains fragmented; each person handles just one piece of the process. The product’s standardization erases the makers’ identities.</p>
+        </section>
+
+        <section id="s3">
+            <h2>Section 3: Infrastructure, Assemblage, and Origins</h2>
+            <p>Marx argues that alienation happens in production. He calls this process "active alienation." The supply chain does not create alienation itself, but extends labor organization for capital’s benefit. By combining ingredients, transport, corporate rules, maintenance, and machinery—outside worker control—the supply chain intensifies alienation. These factors embed alienation in the structure of capitalist production.</p>
+
+            <p>Marx’s analysis of machinery supports this view. Under capitalism, machines are introduced to extract surplus value and cut costs, not to reduce labor. The soft-serve machine exemplifies this in restaurants. Predefined recipes, cleaning cycles, and digital interfaces set strict parameters for workers, reinforcing their alienation. Observing how the machine organizes work exposes hidden labor and infrastructure.</p>
+
+            <p>The Taylor C602 soft-serve/shake freezer manual stresses the machine's significance as infrastructure. Through heat-treatment cycles, cleaning requirements, temperature controls, and lockout conditions, the machine can prevent operation if protocols are not followed. The manual specifies that the heat-treatment cycle must be completed at least once every 24 hours. These technical requirements carry philosophical consequences. The machine organizes workers’ labor rather than simply assisting them. Workers must respond to programmed cycles, error messages, and lockouts (Camposeo-Cheung, 2026). When customers complain that “the ice cream machine is broken,” this moment reveals the infrastructure that is otherwise hidden.</p>
+
+            <p>Langdon Winner’s analysis is instructive in this context. In “Do Artifacts Have Politics?,” Winner contends that machines and systems should be evaluated based on how they embody power and authority, not solely on efficiency. Artifacts are constructed, maintained, and used within social systems. Their designs are able to reinforce political arrangements. The soft-serve machine determines who may access, repair, clean, or override the system. Thus, it represents power relations. While some authority is vested in workers, greater control resides with corporate policies, service technicians, health codes, and managers.</p>
+
+            <p>Winner’s framework indicates that the politics of the soft-serve machine are fundamentally hierarchical. Jane Bennett’s assemblage theory, which examines how diverse human and nonhuman components join to form complex networks, provides additional insight. Bennett defines an 'assemblage' as a combination of human and nonhuman elements that collectively produce outcomes. Within this system, the soft-serve cone is understood as an assemblage comprising cows, feed, milk, sugar, freezers, refrigerants, trucks, electricity, workers, franchise rules, cleaning chemicals, temperature sensors, menus, and consumer desire. Bennett’s perspective resists reductionism by highlighting that the cone is the product of a network rather than a single agent. Capitalist ownership and class-based value extraction ultimately determine the conditions of labor and alienation. Maria Kaika’s City of Flows further strengthens this analysis by shifting attention to the role of infrastructure in forming perception. Kaika contends that contemporary infrastructure creates the illusion that natural and social processes are separate, despite their deep interconnection.</p>
+        </section>
+
+        <section id="s4">
+            <h2>Section 4: Mapping the Soft-Serve Network</h2>
+            <p>Kaika also argues that the modern home appears independent from natural and social processes only because the flows of nature, social relations, and money that support it are hidden, fetishized, or visually severed (Kaika 2004). This is exactly how fast-food soft serve looks. The customer does not see the cow, the dairy worker, the processing plant, the refrigerated truck, or the cleaning cycle. The customer sees only the counter, the employee, and the machine. The system's invisibility makes the commodity feel immediate and natural. According to Emeka W. Dumbili, the influence of the McDonaldization process extends across modern society, so when the machine breaks down, the normally invisible system suddenly becomes apparent by its very absence.</p>
+
+            <p>When the machine breaks down, both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system. Mapping this system makes alienation more apparent, revealing that the commodity is not inherently detached from human origins but is constructed to appear so. Tracing the infrastructure reveals the hidden labor and alienation embedded in every single cone. The essential task is to reverse this appearance by tracing the flows that capitalism conceals.</p>
+        </section>
+
+        <section id="works-cited">
+            <h2>Full Works Cited</h2>
+            <p style="font-size:0.9rem">
+                Bennett, Jane. “The Agency of Assemblages.” Vibrant Matter: A Political Ecology of Things. Duke University Press, 2010.<br>
+                Kaika, Maria. City of Flows: Modernity, Nature, and the City. Routledge, 2005.<br>
+                Marx, Karl. “Estranged Labour.” Economic and Philosophical Manuscripts of 1844.<br>
+                Winner, Langdon. “Do Artifacts Have Politics?” The Whale and the Reactor. University of Chicago Press, 1986.<br>
+                Mayhew, C., & Quinlan, M. (2002). "The Management of Occupational Health and Safety in the Fast Food Industry."<br>
+                Taylor Company. Model C602 Combination Shake/Soft Serve Freezer Manual.<br>
+                U.S. Department of Agriculture, Agricultural Marketing Service. “U.S. Food Flows: A Cold Chain Network Analysis.”
+            </p>
+        </section>
+    </article>
+</div>
+
+<div id="map-popup">
+    <div class="close-btn" onclick="closePopup()">CLOSE [X]</div>
+    <div id="popup-title" style="font-family:'Inter'; font-weight:700; color:var(--gold); border-bottom:1px solid #eee; margin-bottom:20px; text-transform:uppercase">Title</div>
+    <div id="popup-body" style="font-size:1.1rem; line-height:1.9">Text</div>
+</div>
+
+<script>
+    // Animation Dispatcher
+    function dispense() {
+        d3.select("#lever-handle").classed("pulled", true);
+        d3.select("#cream-stream").classed("flowing", true);
+        setTimeout(() => {
+            d3.select("#cone-target").style("display", "block");
+            d3.select("#eat-popup").style("display", "block");
+        }, 800);
+    }
+
+    function eat() {
+        d3.select("#opener-overlay").style("opacity", "0");
+        setTimeout(() => {
+            d3.select("#opener-overlay").style("visibility", "hidden");
+            d3.select("#main-content").classed("visible", true);
+            window.scrollTo(0,0);
+        }, 1000);
+    }
+
+    // MAP DATA
+    const nodeData = [
+        { id: "Cow", x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/2395/2395796.png", l: "Dairy Extraction", text: "The vanilla soft-serve cone handed to a customer is embedded in an extraction network that spans dairy production and industrial processing. Marx: alienation manifests when workers are separated from the value of their labor under capitalism." },
+        { id: "Plant", x: 280, y: 150, img: "https://cdn-icons-png.flaticon.com/512/2544/2544837.png", l: "Industrial Mix", text: "Ice Cream Manufacturing (2024) describes the industrial process: mixing, pasteurization, homogenization, aging, and freezing. Each stage is formed by food science." },
+        { id: "Truck", x: 460, y: 150, img: "https://cdn-icons-png.flaticon.com/512/2830/2830305.png", l: "Cold Chain", text: "The mixture is transported and stored under refrigeration. The cold chain is critical. The USDA defines cold-chain food flows as temperature-controlled delivery from producer to consumer." },
+        { id: "Freezer", x: 640, y: 100, img: "https://cdn-icons-png.flaticon.com/512/811/811311.png", l: "Storage", text: "The last stage in the soft-serve cone's creation shows the alienation built into fast-food infrastructure. At every stage, workers are isolated from the final product." },
+        { id: "Taylor", x: 640, y: 300, img: "https://cdn-icons-png.flaticon.com/512/1004/1004655.png", l: "The Machine", text: "Marx's analysis of machinery: machines are introduced to extract surplus value. The Taylor C602 manual stresses its significance as infrastructure that organizes worker labor." },
+        { id: "Worker", x: 820, y: 300, img: "https://cdn-icons-png.flaticon.com/512/1041/1041893.png", l: "Labor", text: "Workers dispense cones, clean machines, and serve customers, but do not control products, machines, or value. The worker's link is indirect, mediated by capital." },
+        { id: "Broken", x: 950, y: 400, img: "https://cdn-icons-png.flaticon.com/512/4201/4201973.png", l: "Lockout", text: "When the machine breaks down, the normally invisible system suddenly becomes apparent. Operational issues prevent a cone from being served, making customers aware of the complexity." },
+        { id: "Corp", x: 820, y: 100, img: "https://cdn-icons-png.flaticon.com/512/2942/2942125.png", l: "Policy", text: "Langdon Winner: Machines embody power. Greater control resides with corporate policies, service technicians, and managers, restricting worker autonomy." }
+    ];
+
+    const linkData = [
+        {s:"Cow", t:"Plant"}, {s:"Plant", t:"Truck"}, {s:"Truck", t:"Freezer"}, {s:"Freezer", t:"Taylor"},
+        {s:"Taylor", t:"Worker"}, {s:"Corp", t:"Taylor"}, {s:"Taylor", t:"Broken"}, {s:"Broken", t:"Worker"}
+    ];
+
+    const svg = d3.select("#map-svg-container").append("svg").attr("viewBox", "0 0 1100 500");
+    
+    svg.append("g").selectAll("line").data(linkData).enter().append("line")
+        .attr("x1", d=>nodeData.find(n=>n.id===d.s).x).attr("y1", d=>nodeData.find(n=>n.id===d.s).y)
+        .attr("x2", d=>nodeData.find(n=>n.id===d.t).x).attr("y2", d=>nodeData.find(n=>n.id===d.t).y)
+        .attr("stroke", "#eee").attr("stroke-width", 2);
+
+    const nodes = svg.append("g").selectAll(".map-node").data(nodeData).enter().append("g").attr("class", "map-node")
+        .attr("transform", d=>`translate(${d.x-25}, ${d.y-25})`)
+        .on("click", (e, d) => openPopup(d.l, d.text));
+
+    nodes.append("image").attr("href", d=>d.img).attr("width", 50).attr("height", 50);
+    nodes.append("text").attr("dx", 25).attr("dy", 65).attr("text-anchor", "middle").text(d=>d.l);
+
+    function openPopup(t, b) { d3.select("#popup-title").text(t); d3.select("#popup-body").text(b); d3.select("#map-popup").classed("open", true); }
+    function closePopup() { d3.select("#map-popup").classed("open", false); }
+
+    // Sim function
+    let counts = 0;
+    function serveSim() {
+        counts++;
+        const msg = d3.select("#sim-msg");
+        if(counts < 3) msg.text(`Cone #${counts} served successfully.`);
+        else {
+            msg.text("LOCKOUT: Heat-treatment cycle must be completed at least once every 24 hours.");
+            d3.select("#serve-btn").property("disabled", true);
+            d3.select("#sim-analysis").style("display", "block");
+        }
+    }
+</script>
+
+</body>
+</html>
