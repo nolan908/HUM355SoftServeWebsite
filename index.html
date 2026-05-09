@@ -84,9 +84,6 @@
                             <li><a href="#conclusion">Conclusion</a></li>
                         </ul>
                     </nav>
-                    <div class="sidebar-action">
-                        <button class="map-tab-btn" onclick="window.switchTab('map')">VIEW EXTRACTION MAP</button>
-                    </div>
                 </div>
             </aside>
 
@@ -100,11 +97,7 @@
                         <p class="dropcap">Contemporary fast-food soft serve is more than a consumer product: it constitutes an <span class="glossary" data-def="Foundational systems such as production, distribution, and technological platforms.">infrastructure</span> of <span class="glossary" data-def="The separation of workers from the products, processes, and outcomes of their labor.">alienation</span> in the fast-food industry. We take an interest in how McDonald's operates. Infrastructure, in this context, refers to foundational systems such as production, distribution, and technological platforms, each of which enables the creation and delivery of soft serve. Meanwhile, alienation entails the separation of workers from the products, processes, and outcomes of their labor.</p>
                         <p>The vanilla soft serve cone handed to a customer is embedded in an extraction network, a system that extends across dairy production, industrial processing, refrigeration, transportation, franchise labor, machine design, maintenance, and consumer standards, where each element plays a role in the <span class="glossary" data-def="An organized network that moves a product from raw materials to consumers.">supply chain</span>. Together, we see how the different sections throughout this article show that alienation is embedded and obscured within fast-food infrastructures.</p>
                         <p>This analysis examines late twentieth and twenty first century fast-food supply chains, offering a distinct approach: rather than tracing alienation to global supply chains, it draws on Marx’s theory of alienated labor<sup class="fn" data-fn="1">1</sup>. According to Marx, alienation manifests when workers are separated from the product, process, and value of their labor under capitalism, regardless of era or scale. Modern fast-food supply chains intensify and obscure alienation, dispersing production while presenting the finished product as detached from the workers, animals, materials, and machines involved.</p>
-                        <div class="captioned-image">
-                            <img src="vanilla-cone.png" alt="McDonald's Vanilla Cone">
-                            <p>The finished commodity: a McDonald's Vanilla Reduced-Fat Ice Cream Cone.</p>
-                        </div>
-                        </section>
+                    </section>
                         <div class="section-logo-container">
                             <div class="section-emoji animate-pulse">🥛</div>
                         </div>
@@ -149,6 +142,19 @@
                             <img src="https://softserveparts.com/cdn/shop/collections/F221283679_400x.png?v=1673619457" alt="Taylor C602 Machine">
                             <p>The Taylor C602: The industrial infrastructure behind the soft-serve cone.</p>
                         </div>
+                        <div class="mcd-sim-container">
+                            <h2 class="sim-header">Simulation: System Rupture</h2>
+                            <div class="mcd-ui-panel">
+                                <div class="sim-cone-glyph">🍦</div>
+                                <div id="sim-status-label">SYSTEM ONLINE</div>
+                                <button id="btn-serve-sim" class="map-tab-btn" onclick="window.runRuptureSim()">SERVE CONE</button>
+                            </div>
+                            <div id="sim-reveal-area" class="hidden">
+                                <div class="sim-alert">LOCKOUT ENGAGED: HEAT CYCLE FAILURE</div>
+                                <p class="sim-analysis-text">"When the machine is 'broken,' both forms of alienation meet. The consumer's desire confronts the worker's limited power. The worker becomes the visible representative of an invisible system."</p>
+                                <button class="map-tab-btn secondary">CALL MAINTENANCE</button>
+                            </div>
+                        </div>
                     </section>
 
                     <section id="sec-7">
@@ -166,25 +172,15 @@
                     <section id="sec-9">
                         <h2>Section 9: Breakdown Moment</h2>
                         <p>According to the United States Environmental Protection Agency's Proceedings Eighth National Symposium on Food Processing Wastes, operational issues can prevent a cone from being served, making customers aware of the complexity behind what seems to be a simple product<sup class="fn" data-fn="12">12</sup>. This interruption draws attention to the connection between workers' experiences and consumers' perceptions of complex food supply systems. The worker is alienated from the product because they do not control the process or the value it creates. The consumer is alienated in different ways: they are separated from the labor, materials, and infrastructure embedded in the commodity. The worker knows more about the machine’s difficulty than the consumer does, but even the worker does not control the larger system. When the machine is “broken,” both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system.</p>
-                        <div class="mcd-sim-container">
-                            <h2 class="sim-header">Simulation: System Rupture</h2>
-                            <div class="mcd-ui-panel">
-                                <div class="sim-cone-glyph">🍦</div>
-                                <div id="sim-status-label">SYSTEM ONLINE</div>
-                                <button id="btn-serve-sim" class="map-tab-btn" onclick="window.runRuptureSim()">SERVE CONE</button>
-                            </div>
-                            <div id="sim-reveal-area" class="hidden">
-                                <div class="sim-alert">LOCKOUT ENGAGED: HEAT CYCLE FAILURE</div>
-                                <p class="sim-analysis-text">"When the machine is 'broken,' both forms of alienation meet. The consumer's desire confronts the worker's limited power. The worker becomes the visible representative of an invisible system."</p>
-                                <button class="map-tab-btn secondary">CALL MAINTENANCE</button>
-                            </div>
-                        </div>
                     </section>
 
                     <section id="sec-10">
                         <h2>Section 10: Mapping the Infrastructure</h2>
                         <p>At this stage, the philosophical analysis becomes tangible. The purpose is not simply to assert that supply chains are problematic or that soft-serve is unethical, but to map the hidden infrastructure underlying an ordinary commodity and to make visible how alienation is materially produced at each stage. The visual map functions as both an analytical and an illustrative tool, a detailed, multi-layered diagram that clarifies the connections and processes that are typically obscured in the supply chain. This map takes the form of a flowchart or network diagram, with each node denoting a distinct step or actor in the production and delivery of soft-serve, and directional arrows or connectors indicating the movement of materials, labor, and information. The map is divided into four interconnected sections. The first section depicts foundational agricultural and animal systems through pictorial symbols and labeled icons, such as stylized images of dairy cows, sugarcane, and chemical drums, to indicate the sourcing of milk, sugar, stabilizers, and flavoring. The second section traces these raw materials through a sequence of processing and logistics stages, with each processing step—pasteurization, homogenization, mixing, industrial aging, and refrigerated storage—represented by distinct icons or labeled boxes, linked by arrows to refrigerated trucks and storage facilities, illustrating the cold-chain required for safe transport to the restaurant. The third section focuses on in-restaurant flows and routines, depicting freezer storage with cold symbol icons, the soft-serve machine and its critical cycles, worker tasks broken down into cleaning, machine operation, and customer service, and incorporating thermometer and clock visuals to represent regulatory and timing requirements. Flow arrows or color-coded pathways clarify how machine protocols direct and constrain worker autonomy at each stage. The fourth section visually highlights system breakdowns, including warning triangles for lockouts and error notifications, gears or tools for repair procedures, expressive icons for customer frustration, silhouettes of managers for shifting responsibility, and a corporate building symbolizing escalation to upper management. By sequencing and spatially arranging these components, the map delivers a concrete, stepwise visualization of both material and control flows that are otherwise hidden within the fast-food network. This specificity makes certain that viewers can trace how alienation is embedded and reproduced throughout the system, and shows that when the soft-serve machine is “broken,” it is not only a technical issue but also a moment that exposes the normally invisible infrastructures and relationships underpinning the commodity.</p>
                         <p>The visual map therefore does not only show where soft-serve comes from. It shows how control is distributed unevenly across the system. The worker appears at the final point of contact, but the worker does not control the farm, factory, truck, recipe, machine design, repair system, or corporate policy. The consumer appears at the endpoint of the chain, but their experience depends on hidden labor and machinery. The machine sits between them, translating a complex supply chain into a simple act of service when it works and a visible failure when it does not. The map makes this relation visible by connecting the cone to the wider network that normally disappears behind it.</p>
+                        <div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+                            <button class="map-tab-btn" onclick="window.switchTab('map')">VIEW EXTRACTION MAP</button>
+                        </div>
                     </section>
 
                     <section id="conclusion">
