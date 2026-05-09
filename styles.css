@@ -64,7 +64,7 @@ body { background-color: var(--bg-paper); color: var(--ink); font-family: 'Inter
 .map-tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #8c1a11; }
 
 /* 4. PAGE LAYOUT */
-.page-container { display: flex; max-width: 1200px; margin: 0 auto; padding: 100px 20px; gap: 40px; padding-left: 160px; }
+.page-container { display: flex; max-width: 1600px; margin: 0 auto; padding: 100px 20px; gap: 40px; padding-left: 120px; }
 .text-column { flex: 1; min-width: 0; padding-right: 0; }
 
 section { margin-bottom: 250px; opacity: 1 !important; transform: none !important; }
