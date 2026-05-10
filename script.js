@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Taylor: "In this partnership, franchises bear the heavy cost of these repairs while McDonald's benefits a larger corporation, Taylor, rather than the consumer. This proprietary arrangement discourages innovation and makes it difficult to repair the machines through lockouts via verification codes. Consequently, all roads lead to 'call the guy,' allowing Taylor to generate 25% of its business revenue strictly from repairs, a statistic documented in Johnny Harris's investigative reporting on the machine's proprietary repair lockouts.",
         Staff: "The worker becomes the visible representative of an invisible system. Workers dispense cones, clean machines, but do not control products, machines, contracts, prices, recipes, or sales value.",
         Corp: "McDonald's further reinforces this by locking franchises out of any other equipment deals, illustrating how the machine's technical lockout is a tool of economic and political authority. Greater control resides with corporate policies, technicians, and managers.",
-        Rupture: "When the machine is “broken,” both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system."
+        Rupture: "When the machine is “broken,” both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system. (\"Estranged Labour\", Karl Marx)"
     };
 
     function initMap() {
