@@ -90,31 +90,32 @@ document.addEventListener('DOMContentLoaded', () => {
             status.innerText = "FATAL ERROR: LOCKOUT ACTIVE";
             status.style.color = "var(--mcd-red)";
             reveal.classList.remove('hidden');
-            btn.disabled = true; 
-            btn.style.opacity = '0.3';
-            btn.innerText = "CALL MAINTENANCE";
+            btn.style.display = 'none';
         }
-    };
+        };
 
-    // --- 3. TAB NAVIGATION (WITH FADE) ---
-    window.switchTab = (tab) => {
+        // --- 3. TAB NAVIGATION (WITH FADE) ---
+        window.switchTab = (tab) => {
         const article = document.getElementById('tab-article');
         const map = document.getElementById('tab-map');
 
         if(tab === 'map') {
             article.classList.remove('active');
             setTimeout(() => {
+                map.style.opacity = '0';
+                map.style.display = 'block';
                 map.classList.add('active');
                 initMap();
-            }, 300);
+                // Trigger reflow for transition
+                setTimeout(() => { map.style.opacity = '1'; }, 50);
+            }, 400);
         } else {
             map.classList.remove('active');
             setTimeout(() => {
                 article.classList.add('active');
-            }, 300);
+            }, 400);
         }
-    };
-
+        };
     // --- 4. UNIFIED HOVER TOOLTIP ---
     const tooltip = document.getElementById('unified-tooltip');
     const chicagoNotes = {
