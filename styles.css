@@ -218,7 +218,8 @@ p { font-family: 'Lora', serif; font-size: 1.35rem; margin-bottom: 40px; color: 
     margin: 40px 0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-.video-container iframe {
+.video-container iframe,
+.video-container video {
     position: absolute;
     top: 0;
     left: 0;
