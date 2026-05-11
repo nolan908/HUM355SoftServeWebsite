@@ -238,9 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const emojiMap = {
                     Cow: "🐄", Milk: "🥛", Sugar: "🌽", Plant: "🧪", 
                     Truck: "🚛", Store: "🏪", Worker: "👷", 
-                    Policy: "📜", Lockout: "🔒", Customer: "🍦"
-                };
-                d3.select(this).append("text")                    .text(emojiMap[d.id] || "❓")
+                    Policy: "📜", Lockout: "🔒", Customer: "👤"
+                };                d3.select(this).append("text")                    .text(emojiMap[d.id] || "❓")
                     .attr("font-size", "50px")
                     .attr("text-anchor", "middle")
                     .attr("dy", 15);
