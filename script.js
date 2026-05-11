@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "4": "Claire Mayhew and Michael Quinlan, 'Fordism in the Fast Food Industry' (2002), https://onlinelibrary.wiley.com/.../1467-9566.00294.",
         "5": "Taylor Company, Model C602 Combination Shake/Soft Serve Freezer Manual, https://dslinc.com/wp-content/.../C602.pdf.",
         "6": "Langdon Winner, 'Do Artifacts Have Politics?' in The Whale and the Reactor (1986).",
-        "7": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken' (2021), https://www.youtube.com/watch?v=SrDEtSlqJC4.",
+        "7": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken' (2021), timestamps: 9:00, 19:00, 26:00, 28:15, https://www.youtube.com/watch?v=SrDEtSlqJC4.",
         "8": "Jane Bennett, Vibrant Matter: A Political Ecology of Things (2010).",
         "9": "Maria Kaika, City of Flows: Modernity, Nature, and the City (2005)."
     };
