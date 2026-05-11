@@ -36,6 +36,7 @@
                 Freezer: "Standardized, refrigerated, franchise-based systems rapidly produce identical commodities at multiple locations. Efficiency is defined by speed, uniformity, and managerial control.",
                 Taylor: "In this partnership, franchises bear the heavy cost of these repairs while McDonald's benefits a larger corporation, Taylor, rather than the consumer. This proprietary arrangement discourages innovation and makes it difficult to repair the machines through lockouts via verification codes. Consequently, all roads lead to 'call the guy,' allowing Taylor to generate 25% of its business revenue strictly from repairs.",
                 Staff: "The worker becomes the visible representative of an invisible system. Workers dispense cones, clean machines, but do not control products, machines, contracts, prices, recipes, or sales value.",
+                Customer: "The consumer appears at the endpoint of the chain, but their experience depends on hidden labor and machinery. They are separated from the labor, materials, and infrastructure embedded in the commodity.",
                 Corp: "McDonald's further reinforces this by locking franchises out of any other equipment deals, illustrating how the machine's technical lockout is a tool of economic and political authority. Greater control resides with corporate policies, technicians, and managers.",
                 Rupture: "When the machine is “broken,” both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system. (\"Estranged Labour\", Karl Marx)"
             };
@@ -49,6 +50,7 @@
                 { id: "Store", x: 710, y: 200, img: "https://cdn-icons-png.flaticon.com/512/811/811311.png", l: "Store Storage", t: essayParagraphs.Freezer },
                 { id: "Taylor", x: 710, y: 420, img: "", l: "Taylor Machine", t: essayParagraphs.Taylor, isTaylor: true },
                 { id: "Worker", x: 860, y: 300, img: "https://cdn-icons-png.flaticon.com/512/1041/1041893.png", l: "Staff", t: essayParagraphs.Staff },
+                { id: "Customer", x: 1010, y: 250, l: "Customer", t: essayParagraphs.Customer },
                 { id: "Policy", x: 860, y: 100, img: "https://cdn-icons-png.flaticon.com/512/2942/2942125.png", l: "Corp Policy", t: essayParagraphs.Corp },
                 { id: "Lockout", x: 1010, y: 400, img: "https://cdn-icons-png.flaticon.com/512/4201/4201973.png", l: "System Rupture", t: essayParagraphs.Rupture }
             ];
@@ -56,7 +58,7 @@
             const mapLinks = [
                 { source: "Cow", target: "Milk" }, { source: "Milk", target: "Plant" }, { source: "Sugar", target: "Plant" },
                 { source: "Plant", target: "Truck" }, { source: "Truck", target: "Store" }, { source: "Store", target: "Taylor" },
-                { source: "Taylor", target: "Worker" }, { source: "Taylor", target: "Lockout" }, { source: "Policy", target: "Taylor" }
+                { source: "Taylor", target: "Worker" }, { source: "Worker", target: "Customer" }, { source: "Taylor", target: "Lockout" }, { source: "Policy", target: "Taylor" }
             ];
 
             const svg = d3.select("#full-map-container").append("svg").attr("width", "100%").attr("height", "100%").attr("viewBox", "0 0 1100 650");
@@ -96,7 +98,7 @@
                     const emojiMap = {
                         Cow: "🐄", Milk: "🥛", Sugar: "🌽", Plant: "🧪", 
                         Truck: "🚛", Store: "🏪", Worker: "👷", 
-                        Policy: "📜", Lockout: "🔒"
+                        Policy: "📜", Lockout: "🔒", Customer: "🍦"
                     };
                     d3.select(this).append("text")
                         .text(emojiMap[d.id] || "❓")
