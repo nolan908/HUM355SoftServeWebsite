@@ -110,27 +110,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => { map.style.opacity = '1'; }, 50);
             }, 400);
         } else {
-            map.classList.remove('active');
+            map.style.opacity = '0';
             setTimeout(() => {
+                map.style.display = 'none';
+                map.classList.remove('active');
                 article.classList.add('active');
+                // Trigger reflow for transition
+                setTimeout(() => { article.style.opacity = '1'; }, 50);
             }, 400);
         }
         };
     // --- 4. UNIFIED HOVER TOOLTIP ---
     const tooltip = document.getElementById('unified-tooltip');
     const chicagoNotes = {
-        "1": "Karl Marx, 'Estranged Labour,' in Economic and Philosophical Manuscripts of 1844, trans. Martin Milligan (Moscow: Progress Publishers, 1959).",
-        "2": "McDonald's USA, 'Vanilla Cone,' Nutrition & Ingredients, accessed May 9, 2026, https://www.mcdonalds.com/us/en-us/product/vanilla-cone.html.",
-        "3": "Ice Cream Manufacturing: Principles and Methods Explained (New York: Springer, 2024).",
-        "4": "United States Department of Agriculture, 'Cold Chain Food Flows,' Food Safety and Inspection Service, 2023.",
-        "5": "Claire Mayhew and Michael Quinlan, 'Fordism in the Fast Food Industry,' Sociology of Health & Illness 24, no. 3 (2002): 261-284.",
-        "6": "Taylor Company, Model C602 Combination Shake/Soft Serve Freezer Manual (Rockton, IL: Taylor Company, n.d.).",
-        "7": "Langdon Winner, 'Do Artifacts Have Politics?' in The Whale and the Reactor (Chicago: University of Chicago Press, 1986).",
-        "8": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken,' YouTube video, April 20, 2021, https://www.youtube.com/watch?v=SrDEtSlqJC4.",
-        "9": "Jane Bennett, Vibrant Matter: A Political Ecology of Things (Durham, NC: Duke University Press, 2010).",
-        "10": "Maria Kaika, City of Flows: Modernity, Nature, and the City (New York: Routledge, 2005).",
-        "11": "Emeka W. Dumbili, 'McDonaldization and Modern society,' 2020.",
-        "12": "United States Environmental Protection Agency, Proceedings Eighth National Symposium on Food Processing Wastes (1977)."
+        "1": "Karl Marx, 'Estranged Labour,' in Economic and Philosophical Manuscripts of 1844, trans. Martin Milligan (Moscow: Progress Publishers, 1959), accessed May 9, 2026, https://www.marxists.org/archive/marx/works/1844/manuscripts/labour.htm.",
+        "2": "McDonald's USA, 'Vanilla Cone,' Nutrition & Ingredients, accessed May 9, 2026, https://www.mcdonalds.com/us/en-us/product/vanilla-cone.html#accordion-c921f9207b-item-283bee7dbd.",
+        "3": "Dairy Products III: Ice Cream Manufacturing Principles and Methods, Agriculture Institute, accessed May 9, 2026, https://agriculture.institute/dairy-products-iii/ice-cream-manufacturing-principles-methods/.",
+        "4": "Claire Mayhew and Michael Quinlan, 'Fordism in the Fast Food Industry,' Sociology of Health & Illness 24, no. 3 (2002): 261-284, https://onlinelibrary.wiley.com/doi/full/10.1111/1467-9566.00294.",
+        "5": "Taylor Company, Model C602 Combination Shake/Soft Serve Freezer Manual (Rockton, IL: Taylor Company, n.d.), https://dslinc.com/wp-content/uploads/2024/12/C602.pdf.",
+        "6": "Langdon Winner, 'Do Artifacts Have Politics?' in The Whale and the Reactor (Chicago: University of Chicago Press, 1986), 1.",
+        "7": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken,' YouTube video, April 20, 2021, https://www.youtube.com/watch?v=SrDEtSlqJC4.",
+        "8": "Jane Bennett, Vibrant Matter: A Political Ecology of Things (Durham, NC: Duke University Press, 2010), 21-23.",
+        "9": "Maria Kaika, City of Flows: Modernity, Nature, and the City (New York: Routledge, 2005), 4, 66.",
+        "10": "Karl Marx, 'Estranged Labour,' in Economic and Philosophical Manuscripts of 1844, trans. Martin Milligan (Moscow: Progress Publishers, 1959).",
+        "11": "United States Environmental Protection Agency, Proceedings Eighth National Symposium on Food Processing Wastes (1977)."
     };
 
     const showTip = (content, e) => {
@@ -176,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
         Plant: "Industrial ice cream production requires mixing, pasteurization, homogenization, aging, and freezing before the product reaches the customer in its final form. Each stage is formed by food science.",
         Logistics: "The USDA defines cold-chain food flows as temperature-controlled delivery from producer to end consumer by refrigerated trucks. The cold chain is part of the product’s infrastructure.",
         Freezer: "Standardized, refrigerated, franchise-based systems rapidly produce identical commodities at multiple locations. Efficiency is defined by speed, uniformity, and managerial control.",
-        Taylor: "In this partnership, franchises bear the heavy cost of these repairs while McDonald's benefits a larger corporation, Taylor, rather than the consumer. This proprietary arrangement discourages innovation and makes it difficult to repair the machines through lockouts via verification codes. Consequently, all roads lead to 'call the guy,' allowing Taylor to generate 25% of its business revenue strictly from repairs, a statistic documented in Johnny Harris's investigative reporting on the machine's proprietary repair lockouts.",
-        Staff: "The worker becomes the visible representative of an invisible system. Workers dispense cones, clean machines, but do not control products, machines, contracts, prices, recipes, or sales value.",
+        Taylor: "The Taylor C602 is a proprietary, sole machine used by McDonald’s franchises. The machine manual stresses its significance as infrastructure, defining worker labor through heat-treatment cycles and digital interfaces.",
+        Staff: "The worker becomes the visible representative of an invisible system. Workers dispense cones, clean machines, but do not control products, machines, contracts, prices, recipes, or sales value. reduction to a living wage.",
         Customer: "The consumer appears at the endpoint of the chain, but their experience depends on hidden labor and machinery. They are separated from the labor, materials, and infrastructure embedded in the commodity.",
         Corp: "McDonald's further reinforces this by locking franchises out of any other equipment deals, illustrating how the machine's technical lockout is a tool of economic and political authority. Greater control resides with corporate policies, technicians, and managers.",
         Rupture: "When the machine is “broken,” both forms of alienation meet. The consumer’s desire confronts the worker’s limited power. The worker becomes the visible representative of an invisible system. (\"Estranged Labour\", Karl Marx)"
