@@ -123,17 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 4. UNIFIED HOVER TOOLTIP ---
     const tooltip = document.getElementById('unified-tooltip');
     const chicagoNotes = {
-        "1": "Karl Marx, 'Estranged Labour,' in Economic and Philosophical Manuscripts of 1844, trans. Martin Milligan (Moscow: Progress Publishers, 1959), accessed May 9, 2026, https://www.marxists.org/archive/marx/works/1844/manuscripts/labour.htm.",
-        "2": "McDonald's USA, 'Vanilla Cone,' Nutrition & Ingredients, accessed May 9, 2026, https://www.mcdonalds.com/us/en-us/product/vanilla-cone.html#accordion-c921f9207b-item-283bee7dbd.",
-        "3": "Dairy Products III: Ice Cream Manufacturing Principles and Methods, Agriculture Institute, accessed May 9, 2026, https://agriculture.institute/dairy-products-iii/ice-cream-manufacturing-principles-methods/.",
-        "4": "Claire Mayhew and Michael Quinlan, 'Fordism in the Fast Food Industry,' Sociology of Health & Illness 24, no. 3 (2002): 261-284, https://onlinelibrary.wiley.com/doi/full/10.1111/1467-9566.00294.",
-        "5": "Taylor Company, Model C602 Combination Shake/Soft Serve Freezer Manual (Rockton, IL: Taylor Company, n.d.), https://dslinc.com/wp-content/uploads/2024/12/C602.pdf.",
-        "6": "Langdon Winner, 'Do Artifacts Have Politics?' in The Whale and the Reactor (Chicago: University of Chicago Press, 1986), 1.",
-        "7": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken,' YouTube video, April 20, 2021, https://www.youtube.com/watch?v=SrDEtSlqJC4.",
-        "8": "Jane Bennett, Vibrant Matter: A Political Ecology of Things (Durham, NC: Duke University Press, 2010), 21-23.",
-        "9": "Maria Kaika, City of Flows: Modernity, Nature, and the City (New York: Routledge, 2005), 4, 66.",
-        "10": "Karl Marx, 'Estranged Labour,' in Economic and Philosophical Manuscripts of 1844, trans. Martin Milligan (Moscow: Progress Publishers, 1959).",
-        "11": "United States Environmental Protection Agency, Proceedings Eighth National Symposium on Food Processing Wastes (1977)."
+        "1": "Karl Marx, 'Estranged Labour,' Economic and Philosophical Manuscripts of 1844 (1959), https://www.marxists.org/archive/marx/.../labour.htm.",
+        "2": "McDonald's USA, 'Vanilla Cone,' Nutrition & Ingredients (2026), https://www.mcdonalds.com/.../vanilla-cone.html.",
+        "3": "Agriculture Institute, 'Ice Cream Manufacturing Principles and Methods,' https://agriculture.institute/.../ice-cream-manufacturing-principles-methods/.",
+        "4": "Claire Mayhew and Michael Quinlan, 'Fordism in the Fast Food Industry' (2002), https://onlinelibrary.wiley.com/.../1467-9566.00294.",
+        "5": "Taylor Company, Model C602 Combination Shake/Soft Serve Freezer Manual, https://dslinc.com/wp-content/.../C602.pdf.",
+        "6": "Langdon Winner, 'Do Artifacts Have Politics?' in The Whale and the Reactor (1986).",
+        "7": "Johnny Harris, 'The Real Reason McDonald’s Ice Cream Machines Are Always Broken' (2021), https://www.youtube.com/watch?v=SrDEtSlqJC4.",
+        "8": "Jane Bennett, Vibrant Matter: A Political Ecology of Things (2010).",
+        "9": "Maria Kaika, City of Flows: Modernity, Nature, and the City (2005)."
     };
 
     const showTip = (content, e) => {
